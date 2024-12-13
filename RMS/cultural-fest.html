@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Fest - Dynamic College Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #4CAF50;
+            color: #fff;
+            text-align: center;
+            padding: 20px 10px;
+        }
+        nav {
+            text-align: center;
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .content {
+            padding: 20px;
+            margin: 20px 0;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        select {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            max-width: 300px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Annual Fest</h1>
+    <p>Explore the events of past and current fests</p>
+</header>
+
+<nav>
+    <a href="#programs">Programs</a>
+    <a href="#guests">Guests</a>
+    <a href="#budget">Budget</a>
+</nav>
+
+<main>
+    <section>
+        <h2>Select Year</h2>
+        <select id="yearSelector" onchange="updateContent()">
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+        </select>
+    </section>
+
+    <section id="programs" class="content">
+        <h2>Programs</h2>
+        <ul id="programsList"></ul>
+    </section>
+
+    <section id="guests" class="content">
+        <h2>Special Guests</h2>
+        <ul id="guestsList"></ul>
+    </section>
+
+    <section id="budget" class="content">
+        <h2>Budget</h2>
+        <p id="budgetDetails"></p>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 College Name. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // Data for each year
+    const festData = {
+        2024: {
+            programs: [
+                "Opening Ceremony - 10:00 AM",
+                "Cultural Dance - 12:00 PM",
+                "Guest Lecture - 2:00 PM",
+                "Live Concert - 6:00 PM",
+                "Closing Ceremony - 9:00 PM"
+            ],
+            guests: [
+                "Dr. A.P. Singh - Chief Guest",
+                "Ms. Rina Sharma - Keynote Speaker",
+                "Mr. Anil Kumar - Renowned Artist"
+            ],
+            budget: "$50,000 (Event Setup: $20,000, Marketing: $10,000, Activities: $20,000)"
+        },
+        2023: {
+            programs: [
+                "Opening Ceremony - 9:00 AM",
+                "Art Exhibition - 11:00 AM",
+                "Workshops - 2:00 PM",
+                "Comedy Night - 7:00 PM",
+                "Closing Ceremony - 10:00 PM"
+            ],
+            guests: [
+                "Dr. Sunil Gupta - Chief Guest",
+                "Mr. Rahul Desai - Keynote Speaker",
+                "Ms. Neha Rao - Renowned Artist"
+            ],
+            budget: "$45,000 (Event Setup: $18,000, Marketing: $8,000, Activities: $19,000)"
+        },
+        2022: {
+            programs: [
+                "Opening Ceremony - 8:30 AM",
+                "Sports Meet - 10:00 AM",
+                "Cultural Fest - 1:00 PM",
+                "DJ Night - 8:00 PM",
+                "Closing Ceremony - 11:00 PM"
+            ],
+            guests: [
+                "Dr. Meera Joshi - Chief Guest",
+                "Ms. Anjali Verma - Keynote Speaker",
+                "Mr. Kunal Patel - Renowned Artist"
+            ],
+            budget: "$40,000 (Event Setup: $15,000, Marketing: $5,000, Activities: $20,000)"
+        }
+    };
+
+    // Function to update content based on selected year
+    function updateContent() {
+        const selectedYear = document.getElementById("yearSelector").value;
+
+        // Update Programs
+        const programsList = document.getElementById("programsList");
+        programsList.innerHTML = "";
+        festData[selectedYear].programs.forEach(program => {
+            const li = document.createElement("li");
+            li.textContent = program;
+            programsList.appendChild(li);
+        });
+
+        // Update Guests
+        const guestsList = document.getElementById("guestsList");
+        guestsList.innerHTML = "";
+        festData[selectedYear].guests.forEach(guest => {
+            const li = document.createElement("li");
+            li.textContent = guest;
+            guestsList.appendChild(li);
+        });
+
+        // Update Budget
+        const budgetDetails = document.getElementById("budgetDetails");
+        budgetDetails.textContent = festData[selectedYear].budget;
+    }
+
+    // Initialize with default year
+    document.addEventListener("DOMContentLoaded", updateContent);
+</script>
+
+</body>
+</html>

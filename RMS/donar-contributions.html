@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Contributions</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 800px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #6f86d6;
+        }
+        button {
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #48c6ef, #6f86d6);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background: #6f86d6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Donor Contributions</h2>
+        
+        <!-- Donation Submission Form -->
+        <form id="donationForm">
+            <div class="form-group">
+                <label for="donorName">Donor Name:</label>
+                <input type="text" id="donorName" name="donorName" placeholder="Enter donor's name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder="Enter email address" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Contribution Amount ($):</label>
+                <input type="number" id="amount" name="amount" placeholder="Enter contribution amount" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message/Notes (Optional):</label>
+                <textarea id="message" name="message" placeholder="Add a note or message..." rows="4"></textarea>
+            </div>
+            <button type="button" onclick="submitContribution()">Submit Contribution</button>
+        </form>
+
+        <!-- Contribution Report -->
+        <div id="contributionReport">
+            <h3>Contributions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Donor Name</th>
+                        <th>Email</th>
+                        <th>Amount ($)</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody id="reportTableBody">
+                    <!-- Donor contributions will be displayed here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Array to store contribution data
+        const contributions = [];
+
+        // Function to handle form submission
+        function submitContribution() {
+            const donorName = document.getElementById("donorName").value;
+            const email = document.getElementById("email").value;
+            const amount = document.getElementById("amount").value;
+            const message = document.getElementById("message").value;
+
+            if (!donorName || !email || !amount) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            // Add contribution to the array
+            contributions.push({
+                donorName,
+                email,
+                amount: parseFloat(amount),
+                message: message || "No message provided."
+            });
+
+            // Update the contributions table
+            updateContributionTable();
+
+            // Reset the form
+            document.getElementById("donationForm").reset();
+
+            alert("Thank you for your contribution!");
+        }
+
+        // Function to update the contributions table
+        function updateContributionTable() {
+            const tableBody = document.getElementById("reportTableBody");
+            tableBody.innerHTML = ""; // Clear existing rows
+
+            contributions.forEach((contribution, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${contribution.donorName}</td>
+                    <td>${contribution.email}</td>
+                    <td>${contribution.amount.toLocaleString()}</td>
+                    <td>${contribution.message}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>

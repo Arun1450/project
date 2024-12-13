@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacultyPerformance</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 500px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: #6f86d6;
+        }
+        button {
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #48c6ef, #6f86d6);
+        }
+        .performance-report {
+            margin-top: 20px;
+            text-align: left;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background: #6f86d6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Faculty Performance</h2>
+        <form id="facultyForm">
+            <div class="form-group">
+                <label for="facultyName">Select Faculty:</label>
+                <select id="facultyName" name="facultyName" required>
+                    <option value="" disabled selected>Select Faculty</option>
+                    <option value="Dr. Gowramma G S">Dr. Gowramma G S</option>
+                    <option value="Mrs.Mamtha K">Mrs.Mamtha K</option>
+                    <option value="Mr. KeshavMurthy">Mr. KeshavMurthy</option>
+                    <option value="Dr. Nagaraja P">Dr. Nagaraja P</option>
+                    <option value="Dr. Ranjini P S">Dr. Ranjini P S</option>
+                    <option value="Mr.Sampath Kumar">Mr. Sampath Kumar</option
+                    >
+                    <option value="Mrs. Meghana H M">Mrs. Meghana H M</option>
+                    <option value="Mrs. Subhashini B N">Mrs. Subhashini B N</option>
+                    <option value="Mrs. Sapna S Basavraddi">Mrs. Sapna S Basavraddi</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="performanceRating">Rate Performance (1-5):</label>
+                <select id="performanceRating" name="performanceRating" required>
+                    <option value="" disabled selected>Select Rating</option>
+                    <option value="1">1 - Poor</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="3">3 - Good</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="5">5 - Excellent</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="feedback">Provide Feedback:</label>
+                <textarea id="feedback" name="feedback" placeholder="Write your feedback here..." rows="4"></textarea>
+            </div>
+            <button type="button" onclick="submitFeedback()">Submit</button>
+        </form>
+        <div class="performance-report" id="performanceReport" style="display: none;">
+            <h3>Submitted Performance Review:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Faculty Name</th>
+                        <th>Rating</th>
+                        <th>Feedback</th>
+                    </tr>
+                </thead>
+                <tbody id="reportTableBody">
+                    <!-- Performance reviews will be displayed here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function submitFeedback() {
+            const facultyName = document.getElementById("facultyName").value;
+            const performanceRating = document.getElementById("performanceRating").value;
+            const feedback = document.getElementById("feedback").value;
+
+            if (!facultyName || !performanceRating) {
+                alert("Please complete all required fields.");
+                return;
+            }
+
+            const reportTableBody = document.getElementById("reportTableBody");
+
+            // Append the new feedback to the performance report table
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${facultyName}</td>
+                <td>${performanceRating}</td>
+                <td>${feedback || "No feedback provided"}</td>
+            `;
+            reportTableBody.appendChild(row);
+
+            // Show the performance report section
+            document.getElementById("performanceReport").style.display = "block";
+
+            // Reset the form
+            document.getElementById("facultyForm").reset();
+
+            alert("Feedback submitted successfully!");
+        }
+    </script>
+</body>
+</html>

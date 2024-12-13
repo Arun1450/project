@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Budget</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 800px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background: #30c33f;
+            color: white;
+        }
+        .total-budget {
+            margin-top: 20px;
+
+            font-size: 18px;
+            color: #333;
+        }
+        .chart {
+            margin-top: 30px;
+        }
+        canvas {
+            max-width: 100%;
+        }
+        button {
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #48c6ef, #6f86d6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Annual Budget Overview</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Allocated Budget (Rs)</th>
+                    <th>Spent Budget (Rs)</th>
+                </tr>
+            </thead>
+            <tbody id="budgetTable">
+                <!-- Rows will be added dynamically using JavaScript -->
+            </tbody>
+        </table>
+        <div class="total-budget" id="totalBudget">
+            <!-- Total budget will be displayed here -->
+        </div>
+        <div class="chart">
+            <h3>Budget Utilization Chart</h3>
+            <canvas id="budgetChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Include Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Example data for the budget
+        const budgetData = [
+            { department: "CSE", allocated: 50000000, spent:20000000 },
+            { department: "ISE", allocated: 60000000, spent:25000000 },
+            { department: "AI & DS", allocated:15000000, spent: 5000000 },
+            { department: "AI & ML", allocated: 25000000, spent:10000000 },
+            { department: "ECE", allocated: 40000000, spent: 15000000 },
+            { department: "EEE", allocated: 15000000, spent: 6000000 },
+            { department: "Civil", allocated:4000000, spent: 2000000 },
+            { department: "ME", allocated: 3000000, spent: 1000000 },
+        ];
+
+        // Populate the table
+        const budgetTable = document.getElementById("budgetTable");
+        let totalAllocated = 0;
+        let totalSpent = 0;
+
+        budgetData.forEach(item => {
+            totalAllocated += item.allocated;
+            totalSpent += item.spent;
+
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${item.department}</td>
+                <td>${item.allocated.toLocaleString()}</td>
+                <td>${item.spent.toLocaleString()}</td>
+            `;
+            budgetTable.appendChild(row);
+        });
+
+        // Display total budget
+        const totalBudgetDiv = document.getElementById("totalBudget");
+        totalBudgetDiv.innerHTML = `
+            <strong>Total Allocated Budget:</strong> Rs.${totalAllocated.toLocaleString()}<br>
+            <strong>Total Spent Budget:</strong> Rs.${totalSpent.toLocaleString()}<br>
+            <strong>Remaining Budget:</strong> Rs.${(totalAllocated - totalSpent).toLocaleString()}
+        `;
+
+        // Create the chart
+        const ctx = document.getElementById("budgetChart").getContext("2d");
+        const labels = budgetData.map(item => item.department);
+        const allocatedData = budgetData.map(item => item.allocated);
+        const spentData = budgetData.map(item => item.spent);
+
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Allocated Budget",
+                        data: allocatedData,
+                        backgroundColor: "rgba(111, 134, 214, 0.7)"
+                    },
+                    {
+                        label: "Spent Budget",
+                        data: spentData,
+                        backgroundColor: "rgba(72, 198, 239, 0.7)"
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: "top"
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return `Rs.${tooltipItem.raw.toLocaleString()}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value) {
+                                return `Rs.${value.toLocaleString()}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

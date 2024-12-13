@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don Bosco Institute Of Technology</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            color: black;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+        }
+        #logo{
+            width:60px;
+            height:60px;
+        }
+        header h1 {
+            margin: 10px;
+        }
+        nav {
+            background: #00509E;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        section h2 {
+            background: #00509E;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .reports-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .report-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .report-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .report-card a {
+            color: #00509E;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #003366;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="collage logo.jpeg" id="logo">
+        <h1>Don Bosco Institute Of Technology</h1>
+    </header>
+    <nav>
+        <a href="academic-reports">Academic Reports</a>
+        <a href="financial-reports">Financial Reports</a>
+        <a href="events-reports">Events Reports</a>
+        <a href="custom-reports">Custom Reports</a>
+    </nav>
+    <div class="container">
+        <section id="academic-reports">
+            <h2>Academic Reports</h2>
+            <div class="reports-list">
+                <div class="report-card">
+                    <h3>Annual Grades Analysis</h3>
+                    <a href="grades-report.html">View Report</a>
+                </div>
+                <div class="report-card">
+                    <h3>Faculty Performance</h3>
+                    <a href="faculty-performance.html">View Report</a>
+                </div>
+            </div>
+        </section>
+        <section id="financial-reports">
+            <h2>Financial Reports</h2>
+            <div class="reports-list">
+                <div class="report-card">
+                    <h3>Annual Budget Report</h3>
+                    <a href="budget-summary.html">View Report</a>
+                </div>
+                <div class="report-card">
+                    <h3>Donor Contributions</h3>
+                    <a href="donar-contributions.html">View Report</a>
+                </div>
+            </div>
+        </section>
+        <section id="events-reports">
+            <h2>Events Reports</h2>
+            <div class="reports-list">
+                <div class="report-card">
+                    <h3>Annual Cultural Fest</h3>
+                    <a href="cultural-fest.html">View Report</a>
+                </div>
+                <div class="report-card">
+                    <h3>Sports Day Highlights</h3>
+                    <a href="sports-day.html">View Report</a>
+                </div>
+            </div>
+        </section>
+        <section id="custom-reports">
+            <h2>Custom Reports</h2>
+            <div class="reports-list">
+                <div class="report-card">
+                    <h3>Custom Report 1</h3>
+                    <a href="custom-report1.html">View Report</a>
+                </div>
+                <div class="report-card">
+                    <h3>Custom Report 2</h3>
+                    <a href="custom-report-2.html">View Report</a>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 Institute Name. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

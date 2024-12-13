@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeReport</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #6f86d6;
+        }
+        button {
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #48c6ef, #6f86d6);
+        }
+        .grade-report {
+            margin-top: 20px;
+            text-align: left;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background: #6f86d6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Grade Report</h2>
+        <form id="gradeForm">
+            <div class="form-group">
+                <label for="studentId">Student ID:</label>
+                <input type="text" id="studentId" name="studentId" placeholder="Enter your Student ID" required>
+            </div>
+            <div class="form-group">
+                <label for="semester">Semester:</label>
+                <select id="semester" name="semester" required>
+                    <option value="" disabled selected>Select Semester</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+            <button type="button" onclick="fetchGrades()">View Grades</button>
+        </form>
+        <div class="grade-report" id="gradeReport" style="display: none;">
+            <h3>Your Grades:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody id="gradeTableBody">
+                    <!-- Grades will be displayed here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Example grades for demonstration purposes
+        const mockGrades = {
+            "101": {
+                "1": [
+                    { subject: "Mathematics", grade: "A" },
+                    { subject: "Science", grade: "B+" },
+                    { subject: "English", grade: "A-" }
+                ],
+                "2": [
+                    { subject: "Mathematics", grade: "A" },
+                    { subject: "Physics", grade: "B" },
+                    { subject: "Chemistry", grade: "A-" }
+                ]
+            },
+            "102": {
+                "1": [
+                    { subject: "Mathematics", grade: "B+" },
+                    { subject: "Science", grade: "A" },
+                    { subject: "English", grade: "B" }
+                ]
+            }
+        };
+
+        function fetchGrades() {
+            const studentId = document.getElementById("studentId").value;
+            const semester = document.getElementById("semester").value;
+            const gradeReportDiv = document.getElementById("gradeReport");
+            const gradeTableBody = document.getElementById("gradeTableBody");
+
+            if (!studentId || !semester) {
+                alert("Please enter all required fields.");
+                return;
+            }
+
+            // Clear previous grades
+            gradeTableBody.innerHTML = "";
+
+            // Fetch grades
+            const grades = mockGrades[studentId]?.[semester];
+
+            if (grades) {
+                grades.forEach(grade => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${grade.subject}</td>
+                        <td>${grade.grade}</td>
+                    `;
+                    gradeTableBody.appendChild(row);
+                });
+                gradeReportDiv.style.display = "block";
+            } else {
+                alert("No grades found for the provided Student ID and Semester.");
+                gradeReportDiv.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
